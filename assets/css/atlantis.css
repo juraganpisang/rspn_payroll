@@ -3522,6 +3522,7 @@ label.error {
 .table > tfoot > tr > td, .table > tfoot > tr > th {
   padding: 8px; }
 .table thead th {
+  text-align: center;
   border-bottom-width: 2px;
   font-weight: 600; }
 .table td, .table th {
@@ -3529,10 +3530,11 @@ label.error {
   border-top-width: 0px;
   border-bottom: 1px solid;
   border-color: #ebedf2 !important;
-  padding: 0 25px !important;
-  height: 60px;
+  padding: .25rem .75rem !important;
+  /* height: 60px; */
   vertical-align: middle !important; }
-
+.table-sm td, .table-sm th {
+      font-size: .875em; }
 /* table full-width */
 .table-full-width {
   margin-left: -15px;

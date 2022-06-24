@@ -9,7 +9,7 @@
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="<?= config_item('css') ?>bootstrap.min.css">
-    <link rel="stylesheet" href="<?= config_item('css') ?>atlantis.min.css">
+    <link rel="stylesheet" href="<?= config_item('css') ?>atlantis.css">
 
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="<?= config_item('vendor') ?>sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
@@ -191,9 +191,15 @@
                     </div>
                     <ul class="nav nav-primary">
                         <li class="nav-item">
-                            <a href="<?= base_url('Dashboard') ?>" id="nav_dashboard">
+                            <a href="<?= base_url('dashboard') ?>" id="nav_dashboard">
                                 <i class="fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('mapping_gaji') ?>" id="nav_mapping_gaji">
+                                <i class="fas fa-sitemap"></i>
+                                <p>Mapping Gaji</p>
                             </a>
                         </li>
 						<li class="nav-item">
