@@ -71,6 +71,16 @@ class MCore extends CI_Model
         return $sql;
     }
 
+    public function get_setting()
+    {
+        $data = $this->db->get('payroll_setting');
+        $arrdata = [];
+        foreach ($data->result_array() as $key => $value) {
+            $arrdata[$value['set_kode']] = $value['set_value'];
+        }
+        return $arrdata;
+    }
+
     public function join_table($options)
     {
 

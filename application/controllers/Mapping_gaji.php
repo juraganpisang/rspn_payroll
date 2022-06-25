@@ -41,34 +41,18 @@ class Mapping_gaji extends CI_Controller
 ?>
             <tr>
                 <td class="text-center"><?= $no ?></td>
-                <td><?= $value['us_reg'] ?></td>
                 <td>
                     <input type="hidden" name="id[]" value="<?= $value['id_user'] ?>">
                     <input type="hidden" name="id_user[]" value="<?= $value['us_id'] ?>">
-                    <?= $value['us_nama'] ?>
+                    <?= $value['us_nama'] . '<br><i class="fas fa-id-card-alt"></i> ' . $value['us_reg']  ?>
                 </td>
-                <td><?= date('d/m/Y', strtotime($value['us_mulai_kerja'])) ?></td>
-                <td><?= $this->masa_kerja($value['us_mulai_kerja']) ?></td>
-                <td></td>
+                <td><?= date('d/m/Y', strtotime($value['us_mulai_kerja'])) . '<br><i class="fa fa-clock"></i> ' . $this->masa_kerja($value['us_mulai_kerja']) ?></td>
+                <td><?= $this->sel_combobox('payroll_golongan', 'g_id', 'g_nama', $value['id_gol_gaji'], 'g_nama') ?></td>
                 <td><?= $this->sel_combobox('payroll_ptkp', 'kp_id', 'kp_kode', $value['id_status']) ?></td>
                 <td><?= $this->sel_combobox('payroll_tunjangan_jabatan', 'tj_id', 'tj_nama', $value['id_tunj_jabatan']) ?></td>
-                <td><?= $this->sel_combobox('payroll_tunjangan_fungsi', 'tf_id', 'tf_nama', $value['id_tunj_fungsi']) ?></td>
-                <td>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input is_transport" type="checkbox" value="1">
-                            <span class="form-check-sign">Ya</span>
-                        </label>
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input is_bpjs" type="checkbox" value="1">
-                            <span class="form-check-sign">Ya</span>
-                        </label>
-                    </div>
-                </td>
+                <td><?= $this->sel_combobox('payroll_tunjangan_fungsi', 'tf_id', 'tf_nama', $value['id_tunj_fungsi'], 'tf_urut') ?></td>
+                <td><?= $this->inp_checkbox('is_transport', $value['is_transport']) ?></td>
+                <td><?= $this->inp_checkbox('is_bpjs', $value['is_bpjs']) ?></td>
             </tr>
 <?php
             $no++;
@@ -92,7 +76,7 @@ class Mapping_gaji extends CI_Controller
             $order = $id;
         }
         $data = $this->MCore->get_data($table, [], $order);
-        $sel = '<div class="form-group p-0"><select class="form-control form-control-sm" name="' . $id . '[]">';
+        $sel = '<div class="form-group p-0"><select class="form-control form-control-sm" name="' . $id . '[]"><option value="">--</option>';
         foreach ($data->result_array() as $value) {
             $selected = $select == $value[$id] ? 'selected=""' : '';
             $sel .= '<option ' . $selected . ' value="' . $value[$id] . '">' . $value[$name] . '</option>';
@@ -101,30 +85,39 @@ class Mapping_gaji extends CI_Controller
         return $sel;
     }
 
+    private function inp_checkbox($id, $check = 0)
+    {
+        $checked = $check ? 'checked=""' : '';
+        $cb = '<div class="form-check"><label class="form-check-label">'
+            . '<input class="form-check-input ' . $id . '" type="checkbox" value="1" ' . $checked . '>'
+            . '<span class="form-check-sign">Ya</span></label></div>';
+        return $cb;
+    }
+
     public function save()
     {
-        die;
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('nama', 'Nama Golongan', 'trim|required|max_length[50]');
-        $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
-        $this->form_validation->set_rules('baru', 'Nominal Baru', 'trim|required');
-        $this->form_validation->set_rules('lama', 'Nominal Lama', 'trim|required');
+        // $this->load->library('form_validation');
+        // $this->form_validation->set_rules('nama', 'Nama Golongan', 'trim|required|max_length[50]');
+        // $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
+        // $this->form_validation->set_rules('baru', 'Nominal Baru', 'trim|required');
+        // $this->form_validation->set_rules('lama', 'Nominal Lama', 'trim|required');
 
-        $this->form_validation->set_message('required', '{field} tidak boleh kosong.');
-        $this->form_validation->set_message('matches', 'Password harus sama.');
-        $this->form_validation->set_message('max_length', '{field} melebihi {param} karakter.');
-        $this->form_validation->set_message('greater_than', '{field} harus lebih dari 0.');
+        // $this->form_validation->set_message('required', '{field} tidak boleh kosong.');
+        // $this->form_validation->set_message('matches', 'Password harus sama.');
+        // $this->form_validation->set_message('max_length', '{field} melebihi {param} karakter.');
+        // $this->form_validation->set_message('greater_than', '{field} harus lebih dari 0.');
 
-        if ($this->form_validation->run() == FALSE) {
-            $errors = $this->form_validation->error_array();
-            $arr['status'] = 0;
-            $arr['message'] = reset($errors);
-            echo json_encode($arr);
-            exit();
-        }
+        // if ($this->form_validation->run() == FALSE) {
+        //     $errors = $this->form_validation->error_array();
+        //     $arr['status'] = 0;
+        //     $arr['message'] = reset($errors);
+        //     echo json_encode($arr);
+        //     exit();
+        // }
 
         $id = $this->input->post('id');
         $id_user = $this->input->post('id_user');
+        $g_id = $this->input->post('g_id');
         $kp_id = $this->input->post('kp_id');
         $tj_id = $this->input->post('tj_id');
         $tf_id = $this->input->post('tf_id');
@@ -135,11 +128,14 @@ class Mapping_gaji extends CI_Controller
         // 'is_transport', 'is_bpjs_jamsostek', 'is_bpjs_pensiun', 'is_bpjs_kesehatan', 
         // 'penambahan', 'pengurangan', 'bulan', 'tahun', 'bruto' FROM 'payroll_user_mapping' WHERE 1
         foreach ($id as $key => $value) {
+            if ($g_id[$key] == '') {
+                continue;
+            }
             $data = [
-                'id_gol_gaji' => 1,
-                'id_status' => $kp_id[$key],
-                'id_tunj_jabatan' => $tj_id[$key],
-                'id_tunj_fungsi' => $tf_id[$key],
+                'id_gol_gaji' => $g_id[$key],
+                'id_status' => $this->c_null($kp_id[$key]),
+                'id_tunj_jabatan' => $this->c_null($tj_id[$key]),
+                'id_tunj_fungsi' => $this->c_null($tf_id[$key]),
                 'is_transport' => $is_transport[$key],
                 'is_bpjs' => $is_bpjs[$key]
             ];
@@ -159,5 +155,13 @@ class Mapping_gaji extends CI_Controller
         $arr['status'] = 1;
         $arr['message'] = 'Data berhasil disimpan';
         echo json_encode($arr);
+    }
+
+    private function c_null($value = '')
+    {
+        if ($value == '') {
+            return null;
+        }
+        return $value;
     }
 }

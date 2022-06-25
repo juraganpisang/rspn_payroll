@@ -192,19 +192,25 @@
                     <ul class="nav nav-primary">
                         <li class="nav-item">
                             <a href="<?= base_url('dashboard') ?>" id="nav_dashboard">
-                                <i class="fas fa-tachometer-alt"></i>
+                                <i class="fas fa-home"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('gaji') ?>" id="nav_gaji">
+                                <i class="fas fa-wallet"></i>
+                                <p>Gaji Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('mapping_gaji') ?>" id="nav_mapping_gaji">
-                                <i class="fas fa-sitemap"></i>
+                                <i class="fas fa-tasks"></i>
                                 <p>Mapping Gaji</p>
                             </a>
                         </li>
 						<li class="nav-item">
 							<a data-toggle="collapse" href="#tables">
-								<i class="fas fa-th-list"></i>
+								<i class="fas fa-database"></i>
 								<p>Master</p>
 								<span class="caret"></span>
 							</a>

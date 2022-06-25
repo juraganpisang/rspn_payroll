@@ -28,36 +28,52 @@
                                 </select>
                             </div>
                             <div class="row">
-                                <form id="form-data">
+                                <div class="table-responsive">
                                     <table id="table-data" class="table table-sm table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2" style="width: 3%;">No</th>
+                                                <th rowspan="3" style="width: 3%;">No</th>
                                                 <!-- <th rowspan="2">Register</th> -->
-                                                <th rowspan="2" style="width: 32%;">Nama Pegawai</th>
-                                                <th rowspan="2" style="width: 12%;">Tanggal Mulai Bekerja</th>
+                                                <th rowspan="3" style="width: 32%;">Nama Pegawai</th>
+                                                <th rowspan="3" style="width: 12%;">Tanggal Mulai Bekerja</th>
                                                 <!-- <th rowspan="2">Masa Kerja</th> -->
-                                                <th rowspan="2" style="width: 10%;">Golongan</th>
-                                                <th rowspan="2" style="width: 7%;">Status</th>
+                                                <th rowspan="3" style="width: 10%;">Golongan</th>
+                                                <th rowspan="3" style="width: 7%;">Status</th>
+                                                <th rowspan="3" style="width: 7%;">Gaji Pokok</th>
                                                 <th colspan="3">Tunjangan</th>
-                                                <th rowspan="2" style="width: 7%;">BPJS</th>
+                                                <th colspan="3">Diberikan oleh RS</th>
+                                                <th rowspan="3" style="width: 7%;">Bruto</th>
+                                                <th colspan="8">Potongan</th>
+                                                <th rowspan="3" style="width: 7%;">Netto</th>
                                             </tr>
                                             <tr>
-                                                <th style="width: 15%;">Jabatan</th>
-                                                <th style="width: 7%;">Fungsi</th>
-                                                <th style="width: 7%;">Transport</th>
+                                                <th rowspan="2" style="width: 7%;">Jabatan</th>
+                                                <th rowspan="2" style="width: 7%;">Fungsi</th>
+                                                <th rowspan="2" style="width: 7%;">Transport</th>
+                                                <th style="width: 7%;">BPJS jkk jht jkm</th>
+                                                <th style="width: 7%;">BPJS Pensiun</th>
+                                                <th style="width: 7%;">BPJS Kesehatan</th>
+                                                <th colspan="2">BPJS jkk jht jkm</th>
+                                                <th colspan="2">BPJS Pensiun</th>
+                                                <th rowspan="2" style="width: 7%;">Pajak</th>
+                                                <th colspan="2">BPJS Kesehatan</th>
+                                                <th rowspan="2" style="width: 7%;">Jumlah</th>
+                                            </tr>
+                                            <tr>
+                                                <th><?= $s['persen_rs_bpjs_jkk'] . '&nbsp;%' ?></th>
+                                                <th><?= $s['persen_rs_bpjs_pensiun'] . '&nbsp;%' ?></th>
+                                                <th><?= $s['persen_rs_bpjs_kesehatan'] . '&nbsp;%' ?></th>
+                                                <th><?= $s['persen_bpjs_jkk'] . '&nbsp;%' ?></th>
+                                                <th><?= $s['persen_rs_bpjs_jkk'] . '&nbsp;%' ?></th>
+                                                <th><?= $s['persen_bpjs_pensiun'] . '&nbsp;%' ?></th>
+                                                <th><?= $s['persen_rs_bpjs_pensiun'] . '&nbsp;%' ?></th>
+                                                <th><?= $s['persen_rs_bpjs_kesehatan'] . '&nbsp;%' ?></th>
+                                                <th><?= $s['persen_bpjs_kesehatan'] . '&nbsp;%' ?></th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="9" class="text-right">
-                                                    <button type="submit" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
                                     </table>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,7 +90,7 @@
                     cls = i.attr('class');
                 $.ajax({
                     type: 'POST',
-                    url: '<?= base_url('Mapping_gaji/list_') ?>/' + $(this).val(),
+                    url: '<?= base_url('Gaji/list_') ?>/' + $(this).val(),
                     dataType: 'JSON',
                     beforeSend: function() {
                         i.removeClass().addClass('fa fa-spin fa-spinner');
@@ -90,56 +106,6 @@
                 });
             });
             $('#uk').trigger('change');
-        }).on('submit', '#form-data', function(e) {
-            e.preventDefault();
-            var b = $('#btn-save'),
-                i = b.find('i'),
-                cls = i.attr('class');
-            var dt = $(this).serializeArray();
-            $('.is_transport').each(function() {
-                var val = 0;
-                if ($(this).is(':checked')) {
-                    val = 1;
-                }
-                dt.push({
-                    name: 'is_transport[]',
-                    value: val
-                });
-            });
-            $('.is_bpjs').each(function() {
-                var val = 0;
-                if ($(this).is(':checked')) {
-                    val = 1;
-                }
-                dt.push({
-                    name: 'is_bpjs[]',
-                    value: val
-                });
-            });
-            $.ajax({
-                type: 'POST',
-                url: '<?= base_url('Mapping_gaji/save') ?>',
-                data: dt,
-                dataType: 'JSON',
-                beforeSend: function() {
-                    b.attr("disabled", true);
-                    i.removeClass().addClass('fa fa-spin fa-spinner');
-                },
-                success: function(r) {
-                    if (r.status) {
-                        sweetMsg('success', r.message);
-                    } else {
-                        sweetMsg('error', r.message);
-                    }
-                    b.removeAttr("disabled");
-                    i.removeClass().addClass(cls);
-                },
-                error: function(e) {
-                    sweetMsg('error', 'Terjadi kesalahan!');
-                    b.removeAttr("disabled");
-                    i.removeClass().addClass(cls);
-                }
-            });
         }).on('click', '#btn-export', function(e) {
             e.preventDefault();
             window.open('<?php echo base_url('Tunjangan_fungsi/export_excel/') ?>', '_blank');
