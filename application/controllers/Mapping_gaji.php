@@ -14,16 +14,19 @@ class Mapping_gaji extends CI_Controller
         $data = [
             'title' => 'Mapping Gaji Karyawan',
             'nav_id' => 'nav_mapping_gaji',
-            'opt_uk' => $this->opt_uk(25)
+            'opt_uk' => $this->opt_uk(),
+            'js' => array(
+                'maskmoney/jquery.maskMoney.min.js',
+            )
         ];
 
         $this->template->view('VMapping_gaji', $data);
     }
 
-    private function opt_uk($select = 0)
+    private function opt_uk($select = '')
     {
         $data = $this->MCore->get_data('m_unit_kerja', [], 'uk_nama');
-        $opt = '';
+        $opt = '<option value="">-Pilih Unit Kerja-</option>';
         foreach ($data->result_array() as $value) {
             $selected = $value['uk_id'] == $select ? 'selected=""' : '';
             $opt .= '<option ' . $selected . ' value="' . $value['uk_id'] . '">' . $value['uk_nama'] . '</option>';
@@ -53,6 +56,7 @@ class Mapping_gaji extends CI_Controller
                 <td><?= $this->sel_combobox('payroll_tunjangan_fungsi', 'tf_id', 'tf_nama', $value['id_tunj_fungsi'], 'tf_urut') ?></td>
                 <td><?= $this->inp_checkbox('is_transport', $value['is_transport']) ?></td>
                 <td><?= $this->inp_checkbox('is_bpjs', $value['is_bpjs']) ?></td>
+                <td><input type="text" name="pajak_rp[]" class="form-control form-control-sm currency" value="<?= number_format($value['pajak_rp'], 0) ?>" autocomplete="off"></td>
             </tr>
 <?php
             $no++;
@@ -123,6 +127,7 @@ class Mapping_gaji extends CI_Controller
         $tf_id = $this->input->post('tf_id');
         $is_transport = $this->input->post('is_transport');
         $is_bpjs = $this->input->post('is_bpjs');
+        $pajak_rp = $this->input->post('pajak_rp');
 
         // SELECT 'id_user', 'id_gol_gaji', 'id_status', 'id_tunj_jabatan', 'id_tunj_fungsi', 
         // 'is_transport', 'is_bpjs_jamsostek', 'is_bpjs_pensiun', 'is_bpjs_kesehatan', 
@@ -137,7 +142,8 @@ class Mapping_gaji extends CI_Controller
                 'id_tunj_jabatan' => $this->c_null($tj_id[$key]),
                 'id_tunj_fungsi' => $this->c_null($tf_id[$key]),
                 'is_transport' => $is_transport[$key],
-                'is_bpjs' => $is_bpjs[$key]
+                'is_bpjs' => $is_bpjs[$key],
+                'pajak_rp' => str_replace(',', '', $pajak_rp[$key])
             ];
             if ($value == '') {
                 $data['id_user'] = $id_user[$key];

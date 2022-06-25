@@ -1,3 +1,18 @@
+<style>
+    #table-data tr:nth-child(odd)>td {
+        background-color: #fff;
+        white-space: nowrap;
+    }
+
+    #table-data tr:nth-child(even)>td {
+        background-color: #e2e2e2;
+        white-space: nowrap;
+    }
+
+    #table-data tr>th {
+        background-color: #d7d7d7;
+    }
+</style>
 <div class="main-panel">
     <div class="content">
         <div class="page-inner">
@@ -27,53 +42,52 @@
                                     <?= $opt_uk ?>
                                 </select>
                             </div>
-                            <div class="row">
-                                <div class="table-responsive">
-                                    <table id="table-data" class="table table-sm table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th rowspan="3" style="width: 3%;">No</th>
-                                                <!-- <th rowspan="2">Register</th> -->
-                                                <th rowspan="3" style="width: 32%;">Nama Pegawai</th>
-                                                <th rowspan="3" style="width: 12%;">Tanggal Mulai Bekerja</th>
-                                                <!-- <th rowspan="2">Masa Kerja</th> -->
-                                                <th rowspan="3" style="width: 10%;">Golongan</th>
-                                                <th rowspan="3" style="width: 7%;">Status</th>
-                                                <th rowspan="3" style="width: 7%;">Gaji Pokok</th>
-                                                <th colspan="3">Tunjangan</th>
-                                                <th colspan="3">Diberikan oleh RS</th>
-                                                <th rowspan="3" style="width: 7%;">Bruto</th>
-                                                <th colspan="8">Potongan</th>
-                                                <th rowspan="3" style="width: 7%;">Netto</th>
-                                            </tr>
-                                            <tr>
-                                                <th rowspan="2" style="width: 7%;">Jabatan</th>
-                                                <th rowspan="2" style="width: 7%;">Fungsi</th>
-                                                <th rowspan="2" style="width: 7%;">Transport</th>
-                                                <th style="width: 7%;">BPJS jkk jht jkm</th>
-                                                <th style="width: 7%;">BPJS Pensiun</th>
-                                                <th style="width: 7%;">BPJS Kesehatan</th>
-                                                <th colspan="2">BPJS jkk jht jkm</th>
-                                                <th colspan="2">BPJS Pensiun</th>
-                                                <th rowspan="2" style="width: 7%;">Pajak</th>
-                                                <th colspan="2">BPJS Kesehatan</th>
-                                                <th rowspan="2" style="width: 7%;">Jumlah</th>
-                                            </tr>
-                                            <tr>
-                                                <th><?= $s['persen_rs_bpjs_jkk'] . '&nbsp;%' ?></th>
-                                                <th><?= $s['persen_rs_bpjs_pensiun'] . '&nbsp;%' ?></th>
-                                                <th><?= $s['persen_rs_bpjs_kesehatan'] . '&nbsp;%' ?></th>
-                                                <th><?= $s['persen_bpjs_jkk'] . '&nbsp;%' ?></th>
-                                                <th><?= $s['persen_rs_bpjs_jkk'] . '&nbsp;%' ?></th>
-                                                <th><?= $s['persen_bpjs_pensiun'] . '&nbsp;%' ?></th>
-                                                <th><?= $s['persen_rs_bpjs_pensiun'] . '&nbsp;%' ?></th>
-                                                <th><?= $s['persen_rs_bpjs_kesehatan'] . '&nbsp;%' ?></th>
-                                                <th><?= $s['persen_bpjs_kesehatan'] . '&nbsp;%' ?></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
+                            <!-- <div class="table-responsive"> -->
+                            <div class="sticky-table sticky-ltr-cells">
+                                <table id="table-data" class="table table-sm table-bordered table-striped">
+                                    <thead class="sticky-headers">
+                                        <tr>
+                                            <th rowspan="3" style="width: 3%;">No</th>
+                                            <!-- <th rowspan="2">Register</th> -->
+                                            <th rowspan="3" class="sticky-cell" style="width: 32%;">Nama Pegawai</th>
+                                            <th rowspan="3" style="width: 12%;">Tanggal Mulai Bekerja</th>
+                                            <!-- <th rowspan="2">Masa Kerja</th> -->
+                                            <th rowspan="3" style="width: 10%;">Golongan</th>
+                                            <th rowspan="3" style="width: 7%;">Status</th>
+                                            <th rowspan="3" style="width: 7%;">Gaji Pokok</th>
+                                            <th colspan="3">Tunjangan</th>
+                                            <th colspan="3">Diberikan oleh RS</th>
+                                            <th rowspan="3" style="width: 7%;">Bruto</th>
+                                            <th colspan="8">Potongan</th>
+                                            <th rowspan="3" style="width: 7%;">Netto</th>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="2" style="width: 7%;">Jabatan</th>
+                                            <th rowspan="2" style="width: 7%;">Fungsi</th>
+                                            <th rowspan="2" style="width: 7%;">Transport</th>
+                                            <th style="width: 7%;">BPJS jkk jht jkm</th>
+                                            <th style="width: 7%;">BPJS Pensiun</th>
+                                            <th style="width: 7%;">BPJS Kesehatan</th>
+                                            <th colspan="2">BPJS jkk jht jkm</th>
+                                            <th colspan="2">BPJS Pensiun</th>
+                                            <th rowspan="2" style="width: 7%;">Pajak</th>
+                                            <th colspan="2">BPJS Kesehatan</th>
+                                            <th rowspan="2" style="width: 7%;">Jumlah</th>
+                                        </tr>
+                                        <tr>
+                                            <th><?= $s['persen_rs_bpjs_jkk'] . '&nbsp;%' ?></th>
+                                            <th><?= $s['persen_rs_bpjs_pensiun'] . '&nbsp;%' ?></th>
+                                            <th><?= $s['persen_rs_bpjs_kesehatan'] . '&nbsp;%' ?></th>
+                                            <th><?= $s['persen_bpjs_jkk'] . '&nbsp;%' ?></th>
+                                            <th><?= $s['persen_rs_bpjs_jkk'] . '&nbsp;%' ?></th>
+                                            <th><?= $s['persen_bpjs_pensiun'] . '&nbsp;%' ?></th>
+                                            <th><?= $s['persen_rs_bpjs_pensiun'] . '&nbsp;%' ?></th>
+                                            <th><?= $s['persen_rs_bpjs_kesehatan'] . '&nbsp;%' ?></th>
+                                            <th><?= $s['persen_bpjs_kesehatan'] . '&nbsp;%' ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -85,6 +99,10 @@
     <script>
         $(document).ready(function() {
             $('#uk').change(function() {
+                if ($(this).val() == '') {
+                    $('#table-data > tbody').html('<tr><td colspan="22" class="text-center">Tidak ada data...</td></tr>');
+                    return true;
+                }
                 var b = $('#loader'),
                     i = b.find('i'),
                     cls = i.attr('class');

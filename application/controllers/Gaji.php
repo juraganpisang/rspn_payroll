@@ -14,17 +14,23 @@ class Gaji extends CI_Controller
         $data = [
             'title' => 'Gaji Karyawan',
             'nav_id' => 'nav_gaji',
-            'opt_uk' => $this->opt_uk(25),
-            's' => $setting
+            'opt_uk' => $this->opt_uk(),
+            's' => $setting,
+            'css' => array(
+                'jquery.stickytable/jquery.stickytable.css',
+            ),
+            'js' => array(
+                'jquery.stickytable/jquery.stickytable.js',
+            )
         ];
 
         $this->template->view('VGaji', $data);
     }
 
-    private function opt_uk($select = 0)
+    private function opt_uk($select = '')
     {
         $data = $this->MCore->get_data('m_unit_kerja', [], 'uk_nama');
-        $opt = '';
+        $opt = '<option value="">-Pilih Unit Kerja-</option>';
         foreach ($data->result_array() as $value) {
             $selected = $value['uk_id'] == $select ? 'selected=""' : '';
             $opt .= '<option ' . $selected . ' value="' . $value['uk_id'] . '">' . $value['uk_nama'] . '</option>';
@@ -41,17 +47,30 @@ class Gaji extends CI_Controller
         foreach ($data as $value) {
 ?>
             <tr>
-                <td class="text-center"><?= $no ?></td>
-                <td>
+                <td><?= $no ?></td>
+                <td class="sticky-cell">
                     <?= $value['us_nama'] . '<br><i class="fas fa-id-card-alt"></i> ' . $value['us_reg']  ?>
                 </td>
                 <td><?= date('d/m/Y', strtotime($value['us_mulai_kerja'])) . '<br><i class="fa fa-clock"></i> ' . $this->masa_kerja($value['us_mulai_kerja']) ?></td>
                 <td><?= $value['g_nama'] ?></td>
                 <td><?= $value['kp_nama'] ?></td>
-                <td></td>
+                <td><?= rupiah($value['gaji_nominal']) ?></td>
                 <td><?= rupiah($value['tj_nominal']) ?></td>
                 <td><?= rupiah($value['tf_nominal']) ?></td>
                 <td><?= rupiah($value['t_nominal']) ?></td>
+                <td><?= rupiah($value['rs_bpjs_jkk']) ?></td>
+                <td><?= rupiah($value['rs_bpjs_pensiun']) ?></td>
+                <td><?= rupiah($value['rs_bpjs_kesehatan']) ?></td>
+                <td><?= rupiah($value['bruto']) ?></td>
+                <td><?= rupiah($value['bpjs_jkk']) ?></td>
+                <td><?= rupiah($value['rs_bpjs_jkk']) ?></td>
+                <td><?= rupiah($value['bpjs_pensiun']) ?></td>
+                <td><?= rupiah($value['rs_bpjs_pensiun']) ?></td>
+                <td><?= rupiah($value['pajak_rp']) ?></td>
+                <td><?= rupiah($value['bpjs_kesehatan']) ?></td>
+                <td><?= rupiah($value['rs_bpjs_kesehatan']) ?></td>
+                <td><?= rupiah($value['potongan']) ?></td>
+                <td><?= rupiah($value['netto']) ?></td>
             </tr>
 <?php
             $no++;
