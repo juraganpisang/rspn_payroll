@@ -192,12 +192,15 @@
                 success: function(r) {
                     i.removeClass().addClass(cls);
 
+                    baru = parseInt(r.tj_baru).formatMoney(0, '.', ',');
+                    lama = parseInt(r.tj_lama).formatMoney(0, '.', ',');
+
+                    currencyFormat();
                     $('#form-data').find('#id').val(r.tf_id);
                     $('#form-data').find('#nama').val(r.tf_nama);
                     $('#form-data').find('#keterangan').val(r.tf_keterangan);
-                    $('#form-data').find('#baru').val(r.tf_baru);
-                    $('#form-data').find('#lama').val(r.tf_lama);
-                    currencyFormat();
+                    $('#form-data').find('#baru').val(baru);
+                    $('#form-data').find('#lama').val(lama);
                 },
 
                 error: function(e) {
@@ -383,5 +386,16 @@
                 allowNegative: false,
                 precision: 0,
             });
+        }
+
+        Number.prototype.formatMoney = function(c, d, t) {
+            var n = this,
+                c = isNaN(c = Math.abs(c)) ? 2 : c,
+                d = d == undefined ? "." : d,
+                t = t == undefined ? "," : t,
+                s = n < 0 ? "-" : "",
+                i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+                j = (j = i.length) > 3 ? j % 3 : 0;
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
         }
     </script>
