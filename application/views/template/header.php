@@ -357,40 +357,6 @@
                                 </ul>
                             </div>
                         </li>
-<<<<<<< Updated upstream
-						<li class="nav-item">
-							<a data-toggle="collapse" href="#tables">
-								<i class="fas fa-database"></i>
-								<p>Master</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="tables">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="<?= base_url('golongan') ?>" id="nav_golongan">
-											<span class="sub-item">Golongan</span>
-										</a>
-									</li>
-									<li>
-										<a href="<?= base_url('tunjangan_fungsi') ?>" id="nav_tunjangan_fungsi">
-											<span class="sub-item">Tunjangan Fungsi</span>
-										</a>
-									</li>
-									<li>
-										<a href="<?= base_url('tunjangan_jabatan') ?>" id="nav_tunjangan_jabatan">
-											<span class="sub-item">Tunjangan Jabatan</span>
-										</a>
-									</li>
-									<li>
-										<a href="<?= base_url('setting') ?>" id="nav_setting">
-											<span class="sub-item">Setting</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-=======
->>>>>>> Stashed changes
                     </ul>
                 </div>
             </div>
