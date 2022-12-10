@@ -2,42 +2,47 @@
     #image-preview {
         width: 200px;
     }
+
+    ul.breadcrumbs>li>a,
+    ul.breadcrumbs>li.separator {
+        color: #fff;
+        text-decoration: none;
+    }
 </style>
 <div class="main-panel">
     <div class="content">
-        <div class="page-inner">
-            <div class="page-header">
-                <h4 class="page-title"><?= $title; ?></h4>
-                <!-- <ul class="breadcrumbs">
-                    <li class="nav-home">
-                        <a href="#">
-                            <i class="flaticon-home"></i>
-                        </a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">Master</a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#"><?= $title; ?></a>
-                    </li>
-                </ul> -->
+        <div class="panel-header bg-primary-gradient">
+            <div class="page-inner py-5">
+                <div class="page-header mb-0">
+                    <h4 class="page-title text-white"><?= $title; ?></h4>
+                    <ul class="breadcrumbs">
+                        <li class="nav-home">
+                            <a href="#">
+                                <i class="flaticon-home"></i>
+                            </a>
+                        </li>
+                        <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">Master</a>
+                        </li>
+                        <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#"><?= $title; ?></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </div>
+        <div class="page-inner mt--5">
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center">
-                                <h4 class="card-title">List Data</h4>
-                                <div class="form-group">
-                                    <button id="btn-export" type="button" class="btn btn-success btn-sm w-100"><i class="fa fa-file-excel"></i> Export Data</button>
-                                </div>
-                            </div>
+                        <div class="form-group d-none">
+                            <button id="btn-export" type="button" class="btn btn-success btn-sm w-100"><i class="fa fa-file-excel"></i> Export Data</button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -65,12 +70,11 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Form Data</h4>
+                                    <h4 class="card-title">Form</h4>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <input type="hidden" name="id" id="id">
-                                <p class="small">Silahkan isi semua form nya</p>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group form-group-default">
@@ -109,8 +113,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer no-bd">
-                                <button type="submit" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                                 <button type="button" id="btn-cancel" class="btn btn-danger">Batal</button>
+                                <button type="submit" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                         </div>
                     </form>

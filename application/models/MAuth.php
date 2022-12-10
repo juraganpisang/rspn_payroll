@@ -14,7 +14,7 @@ class MAuth extends CI_Model
 		if ($user_row) {
 			// periksa password-nya
 
-			$isPasswordTrue = $user_row->user_password == $data['password'];
+			$isPasswordTrue = $user_row->user_password == md5($data['password']);
 
 			// jika password benar 
 			if ($isPasswordTrue) {
@@ -28,6 +28,7 @@ class MAuth extends CI_Model
 
 				$this->session->set_userdata($newdata);
 
+				$this->MCore->set_history($this->session->userdata('user_fullname'), 'auth', 'Login pada ' . date('d/m/Y H:i:s'));
 				return true;
 			} else {
 				return false;

@@ -37,6 +37,7 @@ class Auth extends CI_Controller
 	public function do_logout()
 	{
 		// hancurkan semua sesi
+		$this->MCore->set_history($this->session->userdata('user_fullname'), 'auth', 'Logout pada ' . date('d/m/Y H:i:s'));
 		$this->session->sess_destroy();
 		redirect(base_url('auth'));
 	}

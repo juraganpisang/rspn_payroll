@@ -11,25 +11,17 @@ use PhpOffice\PhpSpreadsheet\Style\Color as color_; //Instead PHPExcel_Style_Col
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup as pagesetup; // Instead PHPExcel_Worksheet_PageSetup
 use PhpOffice\PhpSpreadsheet\IOFactory as io_factory; // Instead PHPExcel_IOFactory
 
-class Tunjangan_jabatan extends CI_Controller
+class Tunjangan_jabatan extends RS_Controller
 {
 
     public function index()
     {
-
-        if (!$this->session->has_userdata('logged_in')) {
-            redirect('auth');
-        }
-
-        $data = [
-            'title' => 'Master Tunjangan Jabatan',
-            'nav_id' => 'nav_tunjangan_jabatan',
-            'tbody' => $this->list_(),
-            'js' => array(
-                'maskmoney/jquery.maskMoney.min.js',
-            )
+        $header = $this->sendHeader('nav_tunjangan_jabatan', 'Tunjangan Jabatan');
+        $header['js'] = array('maskmoney/jquery.maskMoney.min.js');
+        $body = [
+            'tbody' => $this->list_()
         ];
-
+        $data = array_merge($header, $body);
         $this->template->view('VTunjangan_jabatan', $data);
     }
 

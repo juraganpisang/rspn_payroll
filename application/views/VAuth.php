@@ -205,14 +205,14 @@
 </head>
 
 <body>
-    <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 m-auto h-100">
+    <div class="container-fluid px-1 px-md-4 px-lg-1 px-xl-4 py-4 m-auto h-100">
         <div class="card card0 border-0">
             <div class="row d-flex">
                 <div class="col-lg-6">
                     <div class="card1 pb-5">
                         <div class="row">
                             <div class="col">
-                                <div class="h3 text-center mt-4" style="color: #1572e8"><i class="fa fa-credit-card"></i> Sistem Payroll RSPN</div>
+                                <div class="h3 pl-4 mt-4" style="color: #1572e8"><b><?= config_item('app_name') ?></b> <small><?= config_item('version') ?> Web-based app</small></div>
                             </div>
                         </div>
                         <div class="row px-3 justify-content-center mb-5 border-line">
@@ -241,7 +241,7 @@
                                 <input type="password" name="password" id="password" placeholder="Password ..." autocomplete="off">
                             </div>
                             <div class="row mb-3 px-3 float-right">
-                                <button type="submit" id="btn-login" class="btn btn-success text-center"><i class="fa fa-sign-in-alt"></i> Masuk</button>
+                                <button type="submit" id="btn-login" class="btn btn-primary text-center"><i class="fa fa-sign-in-alt"></i> Login</button>
                             </div>
                         </form>
                     </div>
@@ -249,7 +249,7 @@
             </div>
             <div class="bg-blue py-4">
                 <div class="row px-3">
-                    <small class="ml-4 ml-sm-5 mb-2">2022. All rights reserved. SIM RS</small>
+                    <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2022. All rights reserved. <i class="fa fa-laptop"></i> <small>Developed by</small> Subbag. SIMRS</small>
                 </div>
             </div>
         </div>

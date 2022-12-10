@@ -21,8 +21,15 @@ class MCore extends CI_Model
         $this->db->order_by($order);
         $sql = $this->db->get_where($table, $arrWhere);
         return $sql;
-    } 
-    
+    }
+    public function get_data_in($table, $column, $arrVal, $order = '')
+    {
+        $this->db->where_in($column, $arrVal);
+        $this->db->order_by($order);
+        $sql = $this->db->get($table);
+        return $sql;
+    }
+
     public function select_data($select, $table, $where = false, $order = '')
     {
         $this->db->select($select);
@@ -331,5 +338,32 @@ class MCore extends CI_Model
         }
 
         return $this->db->count_all_results();
+    }
+
+    public function search_data($table, $column, $word, $order = '', $arrWhere = [])
+    {
+        if ($order != '') {
+            $this->db->order_by($order);
+        }
+        if (count($arrWhere) > 0) {
+            $this->db->where($arrWhere);
+        }
+        $sql = $this->db
+            ->like($column, $word)
+            ->get($table);
+        return $sql;
+    }
+
+    public function set_history($userfullname, $menu, $description)
+    {
+        // SELECT 'id', 'akses_menu', 'akses_user', 'akses_waktu', 'deskripsi' FROM 'payroll_history' WHERE 1
+        $data = [
+            'akses_menu' => $menu,
+            'akses_user' => $userfullname,
+            'akses_waktu' => date('Y-m-d h:i:s'),
+            'deskripsi' => $description
+        ];
+        $sql = $this->db->insert('payroll_history', $data);
+        return $sql;
     }
 }

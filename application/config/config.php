@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 date_default_timezone_set('Asia/Jakarta');
 /*
@@ -25,13 +25,15 @@ date_default_timezone_set('Asia/Jakarta');
 |
 */
 $config['base_url'] = "http" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://" . $_SERVER['HTTP_HOST'] . str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
-$config['assets'] = $config['base_url'].'assets/';
-$config['css'] = $config['assets'].'css/';
-$config['fonts'] = $config['assets'].'fonts/';
-$config['img'] = $config['assets'].'img/';
-$config['js'] = $config['assets'].'js/';
-$config['sass'] = $config['assets'].'sass/';
-$config['vendor'] = $config['assets'].'vendor/';
+$config['assets'] = $config['base_url'] . 'assets/';
+$config['css'] = $config['assets'] . 'css/';
+$config['fonts'] = $config['assets'] . 'fonts/';
+$config['img'] = $config['assets'] . 'img/';
+$config['js'] = $config['assets'] . 'js/';
+$config['sass'] = $config['assets'] . 'sass/';
+$config['vendor'] = $config['assets'] . 'vendor/';
+$config['app_name'] = 'Payroll';
+$config['version'] = 'v.1.0';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -59,7 +61,7 @@ $config['index_page'] = '';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']    = 'REQUEST_URI';
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +85,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']    = 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -121,7 +123,7 @@ $config['enable_hooks'] = FALSE;
 | https://codeigniter.com/user_guide/general/creating_libraries.html
 |
 */
-$config['subclass_prefix'] = 'MY_';
+$config['subclass_prefix'] = 'RS_';
 
 /*
 |--------------------------------------------------------------------------
@@ -407,11 +409,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+$config['cookie_prefix']    = '';
+$config['cookie_domain']    = '';
+$config['cookie_path']        = '/';
+$config['cookie_secure']    = FALSE;
+$config['cookie_httponly']     = FALSE;
 
 /*
 |--------------------------------------------------------------------------

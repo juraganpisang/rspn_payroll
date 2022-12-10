@@ -110,35 +110,50 @@
             var nav_active = '<?= $nav_id; ?>';
             $("#" + nav_active).parent().addClass("active");
             if ($("#" + nav_active).parents('.collapse').length == 1) {
-                $("#" + nav_active).addClass("active");
-                // $("#" + nav_active).parents('.collapse').addClass('show');
-                $("#" + nav_active).parents('.collapse').parent().addClass('active');
+                $("#" + nav_active).parents('.collapse').parent().addClass('active submenu');
+                $("#" + nav_active).parents('.collapse').parent().find('a[data-toggle=collapse]').trigger('click');
             }
         });
     </script>
 </head>
 
 <body data-background-color="bg3">
-    <div class="wrapper sidebar_minimize">
+    <div class="wrapper <?= $sidebar_mode ?>">
         <div class="main-header">
             <!-- Logo Header -->
-            <div class="logo-header" data-background-color="white">
-
-                <a href="<?= base_url('dashboard') ?>" class="logo">
-                    <img src="<?= config_item('img') ?>logo_pantinirmala_panjang.png" alt="navbar brand" class="navbar-brand" style="max-height:50px;">
-                </a>
-                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon">
-                        <i class="fas fa-bars"></i>
-                    </span>
-                </button>
-                <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
-                <div class="nav-toggle">
-                    <button class="btn btn-toggle toggle-sidebar">
-                        <i class="fas fa-bars"></i>
+            <?php if ($sidebar_mode == 'overlay-sidebar') { ?>
+                <div class="logo-header" data-background-color="white">
+                    <a href="<?= base_url('dashboard') ?>" class="logo">
+                        <img src="<?= config_item('img') ?>logo_pantinirmala_panjang.png" alt="navbar brand" class="navbar-brand" style="max-height:50px;">
+                    </a>
+                    <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <i class="icon-menu"></i>
+                        </span>
                     </button>
+                    <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+                    <div class="nav-toggle">
+                        <button class="btn btn-toggle sidenav-overlay-toggler toggled"><i class="icon-options-vertical"></i></button>
+                    </div>
                 </div>
-            </div>
+            <?php } else { ?>
+                <div class="logo-header" data-background-color="white">
+                    <a href="<?= base_url('dashboard') ?>" class="logo">
+                        <img src="<?= config_item('img') ?>logo_pantinirmala_panjang.png" alt="navbar brand" class="navbar-brand" style="max-height:50px;">
+                    </a>
+                    <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <i class="fas fa-bars"></i>
+                        </span>
+                    </button>
+                    <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+                    <div class="nav-toggle">
+                        <button class="btn btn-toggle toggle-sidebar">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            <?php } ?>
             <!-- End Logo Header -->
 
             <!-- Navbar Header -->
@@ -149,21 +164,24 @@
                         <li class="nav-item dropdown hidden-caret">
                             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                 <div class="avatar-sm">
-                                    <img src="<?= config_item('img') ?>/profile-2.png" alt="..." class="avatar-img rounded-circle">
+                                    <img src="<?= config_item('img') ?>/nurse.png" alt="..." class="avatar-img rounded-circle">
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-user animated fadeIn">
                                 <div class="dropdown-user-scroll scrollbar-outer">
                                     <li>
                                         <div class="user-box">
-                                            <div class="avatar-lg"><img src="<?= config_item('img') ?>/profile-2.png" alt="image profile" class="avatar-img rounded"></div>
+                                            <div class="avatar-lg"><img src="<?= config_item('img') ?>/nurse.png" alt="image profile" class="avatar-img rounded"></div>
                                             <div class="u-text">
-                                                <h4><?= $this->session->userdata('user_name'); ?></h4>
-                                                <p class="text-muted"><?= $this->session->userdata('user_fullname'); ?></p>
+                                                <h4><?= $u_fullname; ?></h4>
+                                                <p class="text-muted"><?= $u_name; ?></p>
                                             </div>
                                         </div>
                                     </li>
                                     <li>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Profile</a>
+                                        <a class="dropdown-item" href="<?= base_url('history') ?>">History</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="<?= base_url('Auth/do_logout') ?>">Logout</a>
                                     </li>
@@ -177,18 +195,9 @@
         </div>
 
         <!-- Sidebar -->
-        <div class="sidebar sidebar-style-2">
+        <div class="sidebar sidebar-style-1">
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 <div class="sidebar-content">
-                    <div class="user">
-                        <div class="avatar-sm float-left mr-2">
-                            <img src="<?= config_item('img') ?>/profile-2.png" alt="..." class="avatar-img rounded-circle">
-                        </div>
-                        <div class="info">
-                            <div class="text-dark"><?= $this->session->userdata('user_name') ?></div>
-                            <span class="user-level text-muted"><?= $this->session->userdata('user_fullname') ?></span>
-                        </div>
-                    </div>
                     <ul class="nav nav-primary">
                         <li class="nav-item">
                             <a href="<?= base_url('dashboard') ?>" id="nav_dashboard">
@@ -197,17 +206,158 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('gaji') ?>" id="nav_gaji">
+                            <a href="<?= base_url('gaji_generate') ?>" id="nav_gaji">
                                 <i class="fas fa-wallet"></i>
-                                <p>Gaji Karyawan</p>
+                                <p>Gaji Pegawai</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('mapping_gaji') ?>" id="nav_mapping_gaji">
-                                <i class="fas fa-tasks"></i>
-                                <p>Mapping Gaji</p>
+                            <a href="<?= base_url('locker') ?>" id="nav_locker">
+                                <i class="fas fa-lock text-warning"></i>
+                                <p>Locker</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a data-toggle="collapse" href="#laporan">
+                                <i class="fas fa-copy"></i>
+                                <p>Laporan</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="laporan">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="<?= base_url('lap_gaji') ?>" id="nav_l_gaji">
+                                            <span class="sub-item">Gaji</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('lap_gaji_unit') ?>" id="nav_l_gaji_unit">
+                                            <span class="sub-item">Gaji Unit</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-toggle="collapse" href="#pegawai">
+                                <i class="fas fa-user-friends"></i>
+                                <p>Pegawai</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="pegawai">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="<?= base_url('pengangkatan') ?>" id="nav_pengangkatan">
+                                            <span class="sub-item text-primary">Pengangkatan</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('catatan') ?>" id="nav_catatan">
+                                            <span class="sub-item">Catatan</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('punishment') ?>" id="nav_punishment">
+                                            <span class="sub-item text-danger">Punishment</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-toggle="collapse" href="#setting">
+                                <i class="fas fa-file-signature"></i>
+                                <p>Adjustment</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="setting">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="<?= base_url('mutasi_slip') ?>" id="nav_mutasi_slip">
+                                            <span class="sub-item">Pindah Slip Gaji</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('revisi_slip') ?>" id="nav_revisi_slip">
+                                            <span class="sub-item">Revisi Slip Gaji</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-toggle="collapse" href="#mapping">
+                                <i class="fas fa-sitemap"></i>
+                                <p>Mapping</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="mapping">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="<?= base_url('mapping_gaji') ?>" id="nav_mapping_gaji">
+                                            <span class="sub-item">Gaji</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('mapping_jabatan') ?>" id="nav_jabatan">
+                                            <span class="sub-item">Jabatan</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('mapping_slip') ?>" id="nav_mapping_slip">
+                                            <span class="sub-item">Kelompok Slip</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a data-toggle="collapse" href="#master">
+                                <i class="fas fa-database"></i>
+                                <p>Master</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="master">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="<?= base_url('organisasi') ?>" id="nav_organisasi">
+                                            <span class="sub-item">Struktur Organisasi</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('gaji_table') ?>" id="nav_gaji_table">
+                                            <span class="sub-item">Tabel Gaji</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('tunjangan_fungsi') ?>" id="nav_tunjangan_fungsi">
+                                            <span class="sub-item">Tunjangan Fungsi</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('tunjangan_jabatan') ?>" id="nav_tunjangan_jabatan">
+                                            <span class="sub-item">Tunjangan Jabatan</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('insentif_jabatan') ?>" id="nav_insentif_jabatan">
+                                            <span class="sub-item">Insentif Jabatan</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('additional_gaji') ?>" id="nav_additional_gaji">
+                                            <span class="sub-item">Penambahan & Potongan Gaji</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('additional') ?>" id="nav_additional">
+                                            <span class="sub-item">Penambahan & Potongan PPh</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+<<<<<<< Updated upstream
 						<li class="nav-item">
 							<a data-toggle="collapse" href="#tables">
 								<i class="fas fa-database"></i>
@@ -239,6 +389,8 @@
 								</ul>
 							</div>
 						</li>
+=======
+>>>>>>> Stashed changes
                     </ul>
                 </div>
             </div>
